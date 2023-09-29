@@ -37,7 +37,7 @@ def data():
         "orange":move_orange(data),
         "pink":move_pink(data),
         "pacman":move_pacman(data)
-    }
+        }
     return g
 
 app.run()
