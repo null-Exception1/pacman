@@ -71,3 +71,4 @@ A character may only move in the 4, 1 and 3 spaces alloted. If the character sen
 # Finishing up
 
 Similar to the real game, pacman cannot land on the same tile as the ghost. Pacman only wins when all dots of the maze are eaten.
+
