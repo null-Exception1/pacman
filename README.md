@@ -22,10 +22,10 @@ The `state` argument is a dictionary given in the following format -
 After recieving this, the functions need to return a list with 2 items.
 This list indicates a direction in either of the 4 directions - up, down, left or right. These are represented by [x,y] - <br /><br />
 
-[-1,0] - go left <br />
-[1,0] - go right <br />
-[0,-1] - go up <br />
-[0,1] - go down <br />
+`return [-1,0]` - go left <br />
+`return [1,0]` - go right <br />
+`return [0,-1]` - go up <br />
+`return [0,1]` - go down <br />
 
 The ghost AIs and the pacman AIs are to be built only in the ghosts.py and pacman.py script respectively. <br />
 
