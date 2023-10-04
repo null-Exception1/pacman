@@ -68,6 +68,14 @@ The grid does not represent the ghosts or pacman's position. It will report upda
 
 A character may only move in the 4, 1 and 3 spaces alloted. If the character sends a move which crosses a block, it will not be played on the board. After pacman eats a pellet, the 1 or 3 in the grid, becomes a 4. When the character goes into the pathway going to the other side, it will get teleported to the other side of the map.
 
+# Misc
+
+A update counter is used for updating the game board. 
+
+- When a ghost is eaten in weak mode, it is kept imprisoned for 10 updates. \
+- At the beginning, ghosts are randomly placed. They start moving one after another at a delay of 4 updates \
+- Weak mode runs for 15 updates \
+
 # Finishing up
 
 Similar to the real game, pacman cannot land on the same tile as the ghost. Pacman only wins when all dots of the maze are eaten.
