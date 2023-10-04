@@ -3,7 +3,7 @@
 
 You can create your AI for ghosts and pacman, and test them on using this repo.
 
-To run and test your AIs, you need to run `main.py`, which will host a pacman game at https://localhost:5000. Every second, the `ghosts.py` and `pacman.py` recieve the state of the pacman maze in the argument `state`.
+To run and test your AIs, you need to run `main.py`, which will host a pacman game at https://localhost:5000. Every update, the `ghosts.py` and `pacman.py` recieve the state of the pacman maze in the argument `state`.
 
 The `state` argument is a dictionary given in the following format - 
 
