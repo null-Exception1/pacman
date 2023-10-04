@@ -18,6 +18,7 @@ The `state` argument is a dictionary given in the following format -
 }
 
 ```
+`ghosts.py` recieve an extra argument `colour`, in order for the ghost AI agent to recognize it's position.
 
 After recieving this, the functions need to return a list with 2 items.
 This list indicates a direction in either of the 4 directions - up, down, left or right. These are represented by [x,y] - <br /><br />
