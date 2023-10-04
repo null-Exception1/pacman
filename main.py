@@ -2,6 +2,13 @@ from flask import Flask, request
 from flask import render_template
 from pacman import *
 from ghosts import *
+import time
+import logging
+werkzeug_logger = logging.getLogger('werkzeug')
+
+werkzeug_logger.setLevel(logging.CRITICAL)
+
+werkzeug_logger.addHandler(logging.NullHandler())
 app = Flask(__name__, static_folder='static_files', template_folder='template_files')
 @app.route("/")
 def hello():
@@ -31,13 +38,23 @@ def data():
             "pink":pink,
             "orange":orange,
             "cyan":cyan}
-    g = {
-        "red":move_red(data),
-        "cyan":move_cyan(data),
-        "orange":move_orange(data),
-        "pink":move_pink(data),
-        "pacman":move_pacman(data)
-        }
-    return g
-
+    red = move_ghost_agent(data)
+    cyan = move_ghost_agent(data)
+    pink = move_ghost_agent(data)
+    orange = move_ghost_agent(data)
+    pacman = move_pacman(data)
+    dir = [[0,-1],[0,1],[1,0],[-1,0]]
+    if (red in dir) and (cyan in dir) and (pink in dir) and (orange in dir) and (pacman in dir):
+        g = {
+            "red":red,
+            "cyan":cyan,
+            "orange":orange,
+            "pink":pink,
+            "pacman":pacman
+            }
+        time.sleep(0.5)
+        return g
+    else:
+        print('ERROR: Movement only includes [0,-1], [0,1], [1,0], [-1,0]')
+        return "0"
 app.run()

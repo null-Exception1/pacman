@@ -27,7 +27,6 @@ grid = [
     [4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 4],
     [4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4],
 ]
-// 5 - pacman
 // 1 - block
 // 2 - dots
 // 4 - blank
@@ -39,6 +38,65 @@ cyanc = [9,10];
 orangec = [9,11];
 redc = [7,10];
 gamestart = true;
+function rnd(){
+    b = [];
+    for (i=0;i<4;i++){
+        c = Math.floor(Math.random()*150);
+        while (c in b || (c[0] == 15 && c[1] == 10)){
+            c = Math.floor(Math.random()*150);
+            
+        }
+        b.push(c)
+    }
+    return b;
+}
+function isin(m,b){
+    for (k=0;k<b.length;k++){
+        if (b[k] == m){
+            return true;
+        }
+    }
+    return false;
+}
+function mc(){
+    m = 0;
+    l = [];
+    b = rnd();
+    for (i=0;i<20;i++){
+        for (j=0;j<21;j++){
+            if (grid[i][j] == 2 || grid[i][j] == 3){
+                if (isin(m,b)){
+                    l.push([i,j]);
+                }
+                m+=1;
+            }
+        }
+    }
+    return l;
+
+}
+poses = mc();
+pinkc = poses[0];
+cyanc = poses[1];
+orangec = poses[2];
+redc = poses[3];
+wkred = 0;
+wkcyan = 0;
+wkpink= 0;
+wkorange = 0;
+
+function check(){
+    dot = true;
+    for (i=0;i<20;i++){
+        for (j=0;j<21;j++){
+            if (grid[i][j] == 2 || grid[i][j] == 3){
+                dot = false;
+            }
+        }
+    }
+    return dot // true if no dots left, false if dots left
+}
+
 function render_grid(){
     ctx.fillStyle = "black";
     ctx.fillRect(0,0,innerWidth,innerHeight);
@@ -69,17 +127,28 @@ function render_grid(){
         }
     }
     ctx.drawImage(pacman, pacmanc[1]*10, pacmanc[0]*10, 10, 10);
-    if (wk > 0){
-        ctx.drawImage(weak, pinkc[1]*10, pinkc[0]*10, 10, 10);
-        ctx.drawImage(weak, orangec[1]*10, orangec[0]*10, 10, 10);
+    if (wkred > 0){
         ctx.drawImage(weak, redc[1]*10, redc[0]*10, 10, 10);
+    } else {
+        ctx.drawImage(red, redc[1]*10, redc[0]*10, 10, 10);
+    }
+
+    if (wkcyan > 0){
         ctx.drawImage(weak, cyanc[1]*10, cyanc[0]*10, 10, 10);
-        wk -= 1;
+    } else {
+        ctx.drawImage(cyan, cyanc[1]*10, cyanc[0]*10, 10, 10);
+    }
+
+    if (wkpink > 0){
+        ctx.drawImage(weak, pinkc[1]*10, pinkc[0]*10, 10, 10);
     } else {
         ctx.drawImage(pink, pinkc[1]*10, pinkc[0]*10, 10, 10);
+    }
+
+    if (wkorange > 0){
+        ctx.drawImage(weak, orangec[1]*10, orangec[0]*10, 10, 10);
+    } else {
         ctx.drawImage(orange, orangec[1]*10, orangec[0]*10, 10, 10);
-        ctx.drawImage(red, redc[1]*10, redc[0]*10, 10, 10);
-        ctx.drawImage(cyan, cyanc[1]*10, cyanc[0]*10, 10, 10);
     }
 };
 window.addEventListener("keyup",function(e){
@@ -118,7 +187,10 @@ function move_in_grid(val,x,y,r=false){
         val[1] = y1+x;
         if (r){
             if (grid[x1+y][y1+x] == 3){
-                wk = 15;
+                wkred = 15;
+                wkcyan = 15;
+                wkpink = 15;
+                wkorange = 15;
             }
             
             grid[x1+y][y1+x] = 0;
@@ -186,52 +258,59 @@ function main(){
     fetch('/data?grid='+l+"&pacman="+pacmanc+"&red="+redc+"&pink="+pinkc+"&cyan="+cyanc+"&orange="+orangec)
     .then(response => response.text())
     .then(function (text) {
+    if (text == "0"){
+        console.log("ERROR: Movement out of bounds");
+        return;
+    }
     text = JSON.parse(text);
-    if (wk > 0){
-        if (String(pacmanc) == String(pinkc)){
+    if (String(pacmanc) == String(pinkc)){
+        if (wkpink > 0){
             pinkc = [9,9];
-            stepsp = 10
-        }
-        if (String(pacmanc) == String(cyanc)){
-            cyanc = [9,10];
-            stepsc = 10
-        }
-        if (String(pacmanc) == String(orangec)){
-            orangec = [9,11];
-            stepso = 10
-        }
-        if (String(pacmanc) == String(redc)){
-            redc = [9,10];
-            stepsr = 10
-        }
-    } else {
-        if (String(pacmanc) == String(pinkc)){
+            stepsp = 10;
+        } else {
             gamestart = false;
-            clearInterval(d);
-            console.log('game over');
-        }
-        if (String(pacmanc) == String(cyanc)){
-            gamestart = false;
-            clearInterval(d);
-            console.log('game over');
-        }
-        if (String(pacmanc) == String(orangec)){
-            gamestart = false;
-            clearInterval(d);
-            console.log('game over');
-        }
-        if (String(pacmanc) == String(redc)){
-            gamestart = false;
-            clearInterval(d);
+            //clearInterval(d);
             console.log('game over');
         }
     }
+    if (String(pacmanc) == String(cyanc)){
+        if (wkcyan > 0){
+        cyanc = [9,10];
+        stepsc = 10;
+        } else {
+            gamestart = false;
+            //clearInterval(d);
+            console.log('game over');
+        }
+    }
+    if (String(pacmanc) == String(orangec)){
+        if (wkorange > 0){
+        orangec = [9,11];
+        stepso = 10;
+        } else {
+            gamestart = false;
+            //clearInterval(d);
+            console.log('game over');
+        }
+    }
+    if (String(pacmanc) == String(redc)){
+        if (wkred > 0){
+        redc = [9,10];
+        stepsr = 10;
+        } else {
+            gamestart = false;
+            //clearInterval(d);
+            console.log('game over');
+        }
+    }
+    
 
-    move_in_grid(pacmanc,text["pacman"][0],text["pacman"][1],true)
-
+    
+    /*
     if (steps == 4){
         move_in_grid(pinkc,1,-2);
     }
+    */
     if (steps > 4){
         if (stepsp == 0){
         move_in_grid(pinkc,text["pink"][0],text["pink"][1]);
@@ -243,12 +322,15 @@ function main(){
             if (stepsp == 1){
                 move_in_grid(pinkc,1,-2);
                 stepsp -= 1
+                wkpink = 0;
             }
         }
     }
+    /*
     if (steps == 8){
         move_in_grid(cyanc,0,-2);
     }
+    */
     if (steps > 8){
         if (stepsc == 0){
             move_in_grid(cyanc,text["cyan"][0],text["cyan"][1]);
@@ -260,12 +342,15 @@ function main(){
                 if (stepsc == 1){
                     move_in_grid(cyanc,1,-2);
                     stepsc -= 1
+                    wkcyan = 0;
                 }
             }
     }
+    /*
     if (steps == 12){
         move_in_grid(orangec,-1,-2);
     }
+    */
     if (steps > 12){
         if (stepso == 0){
             move_in_grid(orangec,text["orange"][0],text["orange"][1]);
@@ -277,6 +362,7 @@ function main(){
                 if (stepso == 1){
                     move_in_grid(orangec,1,-2);
                     stepso -= 1
+                    wkorange = 0;
                 }
             }
     }
@@ -293,13 +379,22 @@ function main(){
         if (stepsr == 1){
             move_in_grid(redc,1,-2);
             stepsr -= 1;
+            wkred = 0;
         }
     }
-    
+    move_in_grid(pacmanc,text["pacman"][0],text["pacman"][1],true);
+
     render_grid()
     steps += 1;
+
+    if (check()){
+        gamestart = false;
+    }
+    if (gamestart){
+    main();
+    }
     });
     
 }
 
-d = setInterval(main,1000);
+//d = setInterval(main,1000);
