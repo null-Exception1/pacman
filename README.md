@@ -62,7 +62,7 @@ Where - \
 4 - Is a blank space \
 1 - Is a block or barrier \
 2 - Is a grid dot or point \
-3 - Ae power pellets (i.e the main pacman power-up) 
+3 - Are power pellets (i.e the main pacman power-up) 
 
 The grid does not represent the ghosts or pacman's position. It will report updates of the pellets in the grid.
 
