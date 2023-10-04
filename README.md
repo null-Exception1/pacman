@@ -3,7 +3,7 @@
 
 You can create your AI for ghosts and pacman, and test them on using this repo.
 
-To run and test your AIs, you need to run `main.py`, which will host a pacman game at https://localhost:5000. Every second, the `ghosts.py` and `pacman.py` recieve the state of the pacman maze in the argument `state`.
+To run and test your AIs, you need to run `main.py`, which will host a pacman game at https://localhost:5000. Every update, the `ghosts.py` and `pacman.py` recieve the state of the pacman maze in the argument `state`.
 
 The `state` argument is a dictionary given in the following format - 
 
@@ -18,6 +18,7 @@ The `state` argument is a dictionary given in the following format -
 }
 
 ```
+`ghosts.py` recieve an extra argument `colour`, in order for the singular ghost AI function to recognize it's position.
 
 After recieving this, the functions need to return a list with 2 items.
 This list indicates a direction in either of the 4 directions - up, down, left or right. These are represented by [x,y] - <br /><br />
@@ -67,6 +68,14 @@ Where - \
 The grid does not represent the ghosts or pacman's position. It will report updates of the pellets in the grid.
 
 A character may only move in the 4, 1 and 3 spaces alloted. If the character sends a move which crosses a block, it will not be played on the board. After pacman eats a pellet, the 1 or 3 in the grid, becomes a 4. When the character goes into the pathway going to the other side, it will get teleported to the other side of the map.
+
+# Misc
+
+A update counter is used for updating the game board. An update is 0.5 seconds (with delays from calculations made by AI)
+
+- When a ghost is eaten in weak mode, it is kept imprisoned for 10 updates. \
+- At the beginning, ghosts are randomly placed. They start moving one after another at a delay of 4 updates \
+- Weak mode runs for 15 updates \
 
 # Finishing up
 

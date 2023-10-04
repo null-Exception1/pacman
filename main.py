@@ -38,10 +38,10 @@ def data():
             "pink":pink,
             "orange":orange,
             "cyan":cyan}
-    red = move_ghost_agent(data)
-    cyan = move_ghost_agent(data)
-    pink = move_ghost_agent(data)
-    orange = move_ghost_agent(data)
+    red = move_ghost_agent(data,'red')
+    cyan = move_ghost_agent(data,'cyan')
+    pink = move_ghost_agent(data,'pink')
+    orange = move_ghost_agent(data,'orange')
     pacman = move_pacman(data)
     dir = [[0,-1],[0,1],[1,0],[-1,0]]
     if (red in dir) and (cyan in dir) and (pink in dir) and (orange in dir) and (pacman in dir):
