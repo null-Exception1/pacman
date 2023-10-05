@@ -67,7 +67,7 @@ Where - \
 
 The grid does not represent the ghosts or pacman's position. It will report updates of the pellets in the grid.
 
-A character may only move in the 4, 2 and 3 spaces alloted. If the character sends a move which crosses a block, it will not be played on the board. After pacman eats a pellet, the 1 or 3 in the grid, becomes a 4. When the character goes into the pathway going to the other side, it will get teleported to the other side of the map.
+A character may only move in the 4, 2 and 3 spaces alloted. If the character sends a move which crosses a block, it will not be played on the board. After pacman eats a pellet, the 2 or 3 in the grid, becomes a 4. When the character goes into the pathway going to the other side, it will get teleported to the other side of the map.
 
 # Misc
 
