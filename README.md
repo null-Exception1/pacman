@@ -72,6 +72,7 @@ A character may only move in the 4, 2 and 3 spaces alloted. If the character sen
 # Misc
 
 A update counter is used for updating the game board. An update is 0.5 seconds (with delays from calculations made by AI) \
+- Weak mode is triggered when pacman eats (or visits) a 3 cell, also known as a powerup pellet. \
 - When a ghost is eaten in weak mode, it is kept imprisoned for 10 updates (in the middle). \
 - At the beginning, ghosts are randomly placed. They start moving one after another at a delay of 4 updates \
 - Weak mode runs for 15 updates \
