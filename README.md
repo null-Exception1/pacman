@@ -12,8 +12,8 @@ The `state` argument is a dictionary given in the following format -
     "grid": [ ... ], # grid state of the maze (clarified in next section)
     "red": [row,col], # Row and column at which red ghost is present
     "cyan": [row,col], # Row and column at which cyan ghost is present
-    "red": [row,col], # Row and column at which pink ghost is present
-    "red": [row,col], # Row and column at which red ghost is present
+    "pink": [row,col], # Row and column at which pink ghost is present
+    "orange": [row,col], # Row and column at which orange ghost is present
     "pacman": [row, col] # Row and column at which pacman is present
 }
 
